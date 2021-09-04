@@ -60,7 +60,8 @@ class MainActivity : AppCompatActivity() {
             .setTitle("详情")
             .setMessage(message)
             .setPositiveButton("复制为Anywhere配置") { dialog, _ ->
-                val bean2 = Bean2(configBean.data, configBean.action, "", configBean.extras)
+                val extras: Any = if (configBean.extras.isNotEmpty()) configBean.extras else ""
+                val bean2 = Bean2(configBean.data, configBean.action, "", extras)
                 val bean1 = Bean1(
                     app_name = mainItem.appName,
                     id = (System.currentTimeMillis()).toString(),
@@ -95,7 +96,11 @@ class MainActivity : AppCompatActivity() {
             close()
         }
         mAdapter.submitList(dataList)
-        if(dataList.size >= 50) Snackbar.make(binding.rev, "请及时清理数据，以免加载数据过慢", Snackbar.LENGTH_SHORT).show()
+        if (dataList.size >= 50) Snackbar.make(
+            binding.rev,
+            "请及时清理数据，以免加载数据过慢",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     @Keep

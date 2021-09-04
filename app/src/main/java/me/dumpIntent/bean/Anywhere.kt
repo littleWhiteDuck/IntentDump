@@ -19,5 +19,5 @@ data class Bean2(
     val data: String,
     val action: String,
     val category: String,
-    val extras: List<ExtraBean>
+    val extras: Any
 )
