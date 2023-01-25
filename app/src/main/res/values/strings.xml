@@ -5,5 +5,4 @@
     <string name="refresh">刷新</string>
     <string name="github">github</string>
     <string name="about">关于</string>
-    <string name="aboutMe">"作者：littleWhiteDuck\n应用介绍：本应用仅仅Hook了常用的几个启动Activity时的方法,可能不能面向所有的Activity；\n使用本软件需要Xposed；\n本人邮箱：484303285@qq.com；\n说明：为了可以一键复制为Anywhere配置，使用了Absinthe大佬的Anywhere的加密密钥和相关代码</string>
 </resources>

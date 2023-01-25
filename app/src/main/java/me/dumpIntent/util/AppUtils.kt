@@ -9,7 +9,7 @@ import me.dumpIntent.R
 object AppUtils {
     fun getAppName(context: Context, packageName: String): String {
         return try {
-            context.packageManager.getPackageInfo(packageName, 0).applicationInfo.loadLabel(
+            context.packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA).applicationInfo.loadLabel(
                 context.packageManager
             ).toString()
         } catch (e: Exception) {

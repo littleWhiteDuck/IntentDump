@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="me.dumpIntent">
 
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,10 +22,11 @@
             </intent-filter>
         </activity>
         <provider
-            android:authorities="me.dumpIntent.provider"
             android:name="me.dumpIntent.provider.ConfigProvider"
+            android:authorities="me.dumpIntent.provider"
             android:exported="true"
             tools:ignore="ExportedContentProvider" />
+
         <meta-data
             android:name="xposedmodule"
             android:value="true" />
@@ -32,6 +36,15 @@
         <meta-data
             android:name="xposedminversion"
             android:value="53" />
+
+        <receiver
+            android:name=".broadcast.RecordReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="me.dumpIntent.broadcast.ACTION_RECEIVE_RECORD" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -54,13 +54,10 @@ class MainActivity : AppCompatActivity() {
             extraStr = extraStr.substring(0, extraStr.length - 1)
         }
         val message =
-            "应用名: ${mainItem.appName}\n包名: ${configBean.packageName}\n类名: ${configBean.className}\n" +
-                    "Action：${configBean.action}\nData: ${configBean.data}\nExtras: $extraStr"
-        MaterialAlertDialogBuilder(this)
-            .setTitle("详情")
-            .setMessage(message)
-            .setPositiveButton("复制为Anywhere配置") { dialog, _ ->
-                val extras: Any = if (configBean.extras.isNotEmpty()) configBean.extras else ""
+            "应用名: ${mainItem.appName}\n包名: ${configBean.packageName}\n类名: ${configBean.className}\n" + "Action：${configBean.action}\nData: ${configBean.data}\nExtras: $extraStr"
+        MaterialAlertDialogBuilder(this).setTitle("详情").setMessage(message)
+            .setPositiveButton("复制为Anywhere-配置") { dialog, _ ->
+                val extras: Any = configBean.extras.ifEmpty { "" }
                 val bean2 = Bean2(configBean.data, configBean.action, "", extras)
                 val bean1 = Bean1(
                     app_name = mainItem.appName,
@@ -78,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchData() {
+        // 未考虑数据量大和交互
         val dataList = ArrayList<MainItem>()
         contentResolver.query(uri, null, null, null, "ID DESC")?.apply {
             while (moveToNext()) {
@@ -96,11 +94,7 @@ class MainActivity : AppCompatActivity() {
             close()
         }
         mAdapter.submitList(dataList)
-        if (dataList.size >= 50) Snackbar.make(
-            binding.rev,
-            "请及时清理数据，以免加载数据过慢",
-            Snackbar.LENGTH_SHORT
-        ).show()
+        if (dataList.size >= 50) Snackbar.make(binding.rev, "请及时清理数据，以免加载数据过慢", Snackbar.LENGTH_SHORT).show()
     }
 
     @Keep
@@ -129,12 +123,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAboutMe() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("关于")
-            .setMessage(R.string.aboutMe)
-            .setPositiveButton("确认", null)
-            .setNegativeButton("取消", null)
-            .show()
+        MaterialAlertDialogBuilder(this).setTitle("关于").setMessage(
+            """
+            作者：littleWhiteDuck
+            应用介绍：本应用仅仅Hook了常用的几个启动Activity时的方法,可能不能面向所有的Activity
+            使用本软件需要Xposed；
+            本人邮箱：484303285@qq.com；
+            说明：为了可以一键复制为Anywhere-配置，使用了Absinthe大佬的Anywhere-的加密密钥和相关代码
+        """.trimIndent()
+        ).setPositiveButton("确认", null).setNegativeButton("取消", null).show()
     }
 
 
