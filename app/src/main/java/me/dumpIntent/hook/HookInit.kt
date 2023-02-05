@@ -136,11 +136,11 @@ class HookInit : IXposedHookLoadPackage {
         extras?.keySet()?.forEach {
             val type = when (extras.get(it)) {
                 is Boolean -> "--ez"
-                is String -> "--es"
                 is Int -> "--ei"
                 is Long -> "--el"
                 is Float -> "--ef"
-                else -> "--eu" // maybe error
+                is Uri -> "--eu"
+                else ->  "--es"// maybe error
             }
             extraList.add(ExtraBean(type, it, extras.get(it).toString()))
         }

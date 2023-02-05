@@ -1,5 +1,8 @@
 package me.dumpIntent.bean
 
+import androidx.annotation.Keep
+
+@Keep
 data class Bean1(
     val app_name: String,
     val category: String = "",
@@ -15,6 +18,7 @@ data class Bean1(
     val type: Int = 1
 )
 
+@Keep
 data class Bean2(
     val data: String,
     val action: String,
